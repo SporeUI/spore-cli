@@ -1,0 +1,17 @@
+{
+  "name": "@spore-ui/spore-template-test",
+  "version": "0.0.0-development",
+  "private": true,
+  "description": "spore 单元测试用的示例模板",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:SporeUI/spore-template-test.git"
+  },
+  "sporeEngine": "@spore-ui/spore-engine-test",
+  "author": "",
+  "license": "ISC"
+}

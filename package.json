@@ -1,0 +1,73 @@
+{
+  "name": "@spore-ui/spore",
+  "version": "0.0.0-development",
+  "description": "该命令行工具提供项目引擎管理能力",
+  "main": "lib/spore.js",
+  "bin": {
+    "spore": "./bin/spore"
+  },
+  "scripts": {
+    "build": "tsc",
+    "serve": "tsc --watch",
+    "release": "corp-semantic-release --changelogpreset angular-bitbucket --branch develop",
+    "update:ynpm": "node ./scripts/update-ynpm.js",
+    "prepublishOnly": "npm run build",
+    "postpublish": "npm run update:ynpm",
+    "test": "npm run test:unit",
+    "test:unit": "jest --coverage ./test/unit/",
+    "prepare": "husky install",
+    "lint": "eslint ./ --ext .ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:SporeUI/spore-cli.git"
+  },
+  "dependencies": {
+    "@spore-ui/tskit": "^1.0.1",
+    "colorogger": "^1.3.3",
+    "commander": "^11.0.0",
+    "copy": "^0.3.2",
+    "cross-env": "^7.0.0",
+    "del": "^6.0.0",
+    "download": "^8.0.0",
+    "execa": "^4.1.0",
+    "fkill": "^7.0.0",
+    "fs-extra": "^9.0.1",
+    "lodash": "^4.17.20",
+    "nodemon": "^2.0.2",
+    "port-used": "^2.0.8",
+    "prompts": "^2.4.0",
+    "simple-git": "^2.24.0",
+    "tar": "^6.1.11"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.177",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "commitizen": "^4.2.4",
+    "commitlint": "^17.4.4",
+    "conventional-changelog-angular-bitbucket": "^1.2.0",
+    "conventional-changelog-cli": "^2.1.1",
+    "corp-semantic-release": "^7.0.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.47.0",
+    "husky": "^8.0.3",
+    "jest": "^27.3.1",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.2"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "src"
+  ],
+  "author": "TabSpace",
+  "email": "pillar0514@163.com",
+  "license": "MIT"
+}

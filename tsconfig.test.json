@@ -1,0 +1,18 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "allowJs": true,
+    "rootDir": "./test"
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    "./test/**/*.ts",
+  ]
+}

@@ -1,0 +1,186 @@
+#!/usr/bin/env node
+
+const { Command } = require('commander');
+const $pkg = require('../package.json');
+const $spore = require('../lib/spore').default;
+
+const spore = new $spore();
+
+const program = new Command();
+
+program
+  .version($pkg.version);
+
+function makeConfigCommand() {
+  const cmdConfig = new Command('config');
+
+  cmdConfig
+    .description('operate spore config');
+
+  cmdConfig
+    .command('list')
+    .description('list spore config')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action((cmd) => {
+      spore.setOptions(cmd);
+      spore.config.list();
+    });
+
+  cmdConfig
+    .command('remove <key>')
+    .description('remove config or resotre spore config to default')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action(async (key, cmd) => {
+      spore.setOptions(cmd);
+      await spore.config.remove(key);
+    });
+
+  cmdConfig
+    .command('set <key> <val>')
+    .description('set spore config')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action(async (key, val, cmd) => {
+      spore.setOptions(cmd);
+      await spore.config.set(key, val);
+    });
+
+  return cmdConfig;
+}
+
+function makeEngineCommand() {
+  const cmdEngine = new Command('engine');
+
+  cmdEngine
+    .description('operate spore engine');
+
+  cmdEngine
+    .command('list')
+    .description('list spore engines')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action(async (cmd) => {
+      spore.setOptions(cmd);
+      await spore.engine.list();
+    });
+
+  cmdEngine
+    .command('install <name>')
+    .description('install spore engine')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action(async (name, cmd) => {
+      spore.setOptions(cmd);
+      await spore.engine.install(name);
+    });
+
+  cmdEngine
+    .command('remove <name>')
+    .description('remove spore engine')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action(async (name, cmd) => {
+      spore.setOptions(cmd);
+      await spore.engine.remove(name);
+    });
+
+  return cmdEngine;
+}
+
+function makeTemplateCommand() {
+  const cmdTemplate = new Command('template');
+
+  cmdTemplate
+    .description('operate spore template');
+
+  cmdTemplate
+    .command('list')
+    .description('list spore template')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action((cmd) => {
+      spore.setOptions(cmd);
+      spore.template.list();
+    });
+
+  cmdTemplate
+    .command('set <name> <src>')
+    .description('set spore template source')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action(async (name, src, cmd) => {
+      spore.setOptions(cmd);
+      await spore.template.set(name, src);
+    });
+
+  cmdTemplate
+    .command('remove <name>')
+    .description('remove spore template')
+    .option(
+      '-v, --verbose',
+      'output verbose log',
+    )
+    .action(async (name, cmd) => {
+      spore.setOptions(cmd);
+      await spore.template.remove(name);
+    });
+
+  return cmdTemplate;
+}
+
+program
+  .command('create [dir]')
+  .description('create a app')
+  .option(
+    '-t, --template <name>',
+    'The template which app use',
+  )
+  .option(
+    '-v, --verbose',
+    'Output verbose log',
+  )
+  .action((dir, cmd) => {
+    spore.setOptions(cmd);
+    spore.create({
+      dir,
+      template: cmd.template,
+    });
+  });
+
+program
+  .command('run [name]')
+  .description('run scripts from engine')
+  .action((name, cmd) => {
+    spore.setOptions(cmd);
+    if (name) {
+      spore.run(name);
+    } else {
+      spore.list();
+    }
+  });
+
+program.addCommand(makeConfigCommand());
+program.addCommand(makeEngineCommand());
+program.addCommand(makeTemplateCommand());
+
+program.parse(process.argv);
+
+if (!program.args.length) program.help();

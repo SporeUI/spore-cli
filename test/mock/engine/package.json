@@ -1,0 +1,14 @@
+{
+  "name": "@spore-ui/spore-engine-test",
+  "version": "0.1.0",
+  "description": "用于 spore 工具单元测试，无实际业务意义",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
